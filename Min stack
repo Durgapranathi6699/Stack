@@ -27,3 +27,36 @@ class MinStack {
         return min;
     }
 }
+
+//USING 2 STACKS
+
+class MinStack {
+    Stack<Integer> a,b;
+    public MinStack() {
+        a=new Stack<>();
+        b=new Stack<>();//min will be storing
+    }
+     public void push(int val) {
+           a.push(val);//always push into a but in b when value is min then only push 
+         if(b.empty() || b.peek()>=val){
+             b.push(val);
+         }
+    }
+    
+    public void pop() {
+      if(!a.empty()){//always pop from a but from b it should match with a
+          if(a.peek().intValue()==b.peek().intValue()){
+              b.pop();
+          }
+          a.pop();
+      }
+    }
+    
+    public int top() {
+      return a.peek();
+    }
+    
+    public int getMin() {
+        return b.peek();
+    }
+}
