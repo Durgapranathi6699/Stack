@@ -1,0 +1,33 @@
+# TC :O(1)
+//link:https://practice.geeksforgeeks.org/problems/get-minimum-element-from-stack/1?page=1&company[]=Amazon&category[]=Stack&sortBy=submissions
+class GfG
+{
+    int minEle;
+    Stack<Integer> s=new Stack<>();
+     /*returns min element from stack*/
+    int getMin()
+    {
+	   int min=Integer.MAX_VALUE;
+	  for(int i=0;i<s.size();i++){
+	        min=Math.min(min,s.elementAt(i));
+          	}
+	  if(!s.isEmpty())return min;
+	  else return -1;
+    }
+    
+    /*returns poped element from stack*/
+    int pop()
+    {
+      	if(!s.isEmpty()){
+      	    return s.remove(s.size()-1);
+      	}
+      	return -1;
+    }
+
+    /*push element x into the stack*/
+    void push(int x)
+    {
+	     s.add(x);
+    }	
+}
+
