@@ -1,0 +1,35 @@
+class Solution
+{
+    //Function to find the next greater element for each element of the array.
+    public static long[] nextLargerElement(long[] arr, int n)
+    { 
+        // Your code here
+        long[] ans=new long[n];
+        // ans[n-1]=-1;
+        // for(int i=0;i<n;i++){
+        //     for(int j=i+1;j<n;j++){
+        //         if(arr[j]>arr[i]){
+        //             ans[i]=arr[j];
+        //             break;
+        //         }else{
+        //             ans[i]=-1;
+        //         }
+        //     }
+        // }
+        // return ans;
+         Arrays.fill(ans,-1);
+        Stack<Integer> s=new Stack<>();
+        //we push in to stack if our stack elemnt is greater than elemnt needed to be pushed
+        //smaller elments are pushed in to stack
+        //on large elemnt in stcak smll is pushed 
+        s.push(0);
+       for(int i=0;i<n;i++){
+           while(!s.isEmpty() && arr[s.peek()]<arr[i]){//found greater element
+               ans[s.peek()]=arr[i];
+               s.pop();
+           }
+           s.push(i);
+       }
+          return ans;
+    } 
+}
