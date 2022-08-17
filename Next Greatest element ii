@@ -1,0 +1,21 @@
+//connected circularly
+
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        int ans[]=new int[nums.length];
+        for(int i=0;i<nums.length;i++){
+            ans[i]=-1;
+            
+        }
+        Stack<Integer> s=new Stack<>();
+        s.push(0);
+       int n=nums.length;
+          for(int i=0;i<n*2;i++){//loop twice as values are connected circularly
+               while(!s.empty() && nums[s.peek()]<nums[i%n]){
+                    ans[s.pop()]=nums[i%n];
+                }
+               s.push(i%n);
+         }
+         return ans;
+    }
+}
