@@ -1,0 +1,34 @@
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+       //  int count=0;//BRUTE FORE TIMECOMPLEXITY O(N^2)
+       //  int n=temperatures.length;
+       //  int[] ans=new int[temperatures.length];
+       // for(int i=0;i<n-1;i++){
+       //     int k=0;
+       //     int c=1;
+       //     for(int j=i+1;j<n;j++){
+       //         if(temperatures[i]>=temperatures[j]){//till we find greater element we will be incrementing count
+       //             c++;
+       //         }else{
+       //             k++;// k is to check whther any number there which is not greater than particular number
+       //             ans[i]=c;
+       //             break;
+       //         }
+       //     }
+       //     if(k==0)ans[i]=0;
+       // }
+       //  ans[n-1]=0;
+       //  return ans;
+       int ans[]=new int[ temperatures.length];
+        Stack<Integer> stack=new Stack<>();
+        for(int i=0;i< temperatures.length;i++){
+            while(!stack.empty() &&  temperatures[stack.peek()]< temperatures[i]){//to find ans of element in stack
+              //  if our cur elemnet is greater than element in stack stack element ans=curindex-stackindex beacuse the the next warmer day
+                ans[stack.peek()]=i-stack.pop();
+               //after finding its answer pop it from stack
+            }
+            stack.push(i);
+        }
+        return ans;
+    }
+}
