@@ -1,0 +1,25 @@
+class Solution {
+    public int calPoints(String[]  ops) {
+        Stack<Integer> st = new Stack<>();
+        int sum = 0;
+        for (String num : ops) {
+            if (num.equalsIgnoreCase("C")) {
+                sum -= st.pop();
+            } else if (num.equalsIgnoreCase("D")) {
+                st.push(st.peek() * 2);
+                sum += st.peek();
+            } else if (num.equalsIgnoreCase("+")) {
+                int a = st.pop();//get 2 elemnts at top so remove 1 st get 2nd top 
+                int b = st.peek();
+                st.push(a);//push the removed element
+                st.push(a + b);
+                sum += a + b;
+
+        } else {
+            st.push(Integer.parseInt(num));
+            sum += st.peek();
+        }
+        }
+        return sum;
+    }
+}
