@@ -1,0 +1,28 @@
+//USING RECURSION
+//STEPS
+//1.BASECASE COULD BE IF STACK IS EMPTY INSERT GIVEN NUMBER
+//EACH TIME IN RECURSION CALL REMOVE AN ELEMENT AND STORE IN THE VARIABLE VAL
+//WHILE COMING BACJ FROM RECURSION CALL STORE REMOVED ELEMENT INTO THE STACK
+
+import java.util.* ;
+import java.io.*; 
+public class Solution 
+{
+  public static Stack<Integer> pushAtBottom(Stack <Integer> myStack, int x) 
+  {
+     helper(myStack,x);
+     return myStack;
+  }
+  static void helper(Stack <Integer> myStack, int x){
+  //STAC IS EMPTY
+    if(myStack.isEmpty()){
+      myStack.push(x);
+      return;
+  }
+  //REMOVING ELEMNT FROM STACK
+  int val=myStack.pop();
+  helper(myStack,x);
+  //ADDING WHILE COMING FROM THE RECURSION CALL
+  myStack.push(val);
+}
+}
