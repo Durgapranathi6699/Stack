@@ -1,0 +1,33 @@
+class GfG{
+	public Stack<Integer> sort(Stack<Integer> s)
+	{
+		helper(s);
+		return s;
+	}
+ static	void helper(Stack<Integer> s){
+     if(s.empty()){
+         return;
+     }
+     //each time remove elements from stack
+     int val=s.pop();
+     helper(s);
+     //while coming back from recursion call 
+     //add elements in sorted way
+     stackinsertsorted(s,val);
+ }
+ static void stackinsertsorted(Stack<Integer> s,int val){
+     //this is the case we need to add val
+     //to form a sorted stack
+     //as stack top element is less than val
+     //add val on top 
+     if(s.empty() || (!s.empty() && s.peek()<val)){
+         s.push(val);
+         return;
+     }
+     //each time remove element
+     int val1=s.pop();
+     stackinsertsorted(s,val);
+     //while coming back add removed element
+     s.add(val1);
+ }
+}
