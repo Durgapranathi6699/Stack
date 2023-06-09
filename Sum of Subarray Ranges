@@ -1,0 +1,101 @@
+class Solution {
+    public long subArrayRanges(int[] nums) {
+       int ls[]=nextSmallestElementOnLeft(nums);
+       int rs[]=nextSmallestElementOnRight(nums);
+       int lb[]=nextMaxElementOnLeft(nums);
+       int rb[]=nextMaxElementOnRight(nums);
+
+
+   long sum=0;
+
+        for(int i=0;i<nums.length;i++)
+        {
+             long leftMin=i-ls[i],rightMin=rs[i]-i;
+             long leftMax=i-lb[i],rightMax=rb[i]-i;
+            sum+=((leftMax*rightMax)-(leftMin*rightMin))*nums[i];
+            
+        }
+        return sum;
+
+
+    }
+    public int[] nextMaxElementOnLeft(int[] nums) {
+        int n = nums.length;
+        int[] result = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < n; i++) {
+            if(stack.isEmpty()){
+              result[i]=-1;
+            }else{
+                while (!stack.isEmpty() && nums[stack.peek()] < nums[i]) {
+                stack.pop();
+            }
+            result[i] = stack.isEmpty() ? -1 : stack.peek();
+            
+        }
+       stack.push(i);
+            }
+            
+        return result;
+    }
+    public int[] nextMaxElementOnRight(int[] nums) {
+        int n = nums.length;
+        int[] result = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = n - 1; i >= 0; i--) {
+             if(stack.isEmpty()){
+              result[i]=n;
+            }else{
+            while (!stack.isEmpty() && nums[stack.peek()] <= nums[i]) {
+                stack.pop();
+            }
+            result[i] = stack.isEmpty() ? n :stack.peek();
+            }
+            stack.push(i);
+        
+        }
+        return result;
+    }
+    public int[] nextSmallestElementOnLeft(int[] nums) {
+        int n = nums.length;
+        int[] result = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < n; i++) {
+             if(stack.isEmpty()){
+              result[i]=-1;
+            }else{
+            while (!stack.isEmpty() && nums[stack.peek()] > nums[i]) {
+                stack.pop();
+            }
+            result[i] = stack.isEmpty() ? -1 : stack.peek();
+            
+        }
+        stack.push(i);
+        }
+        return result;
+    }
+public int[] nextSmallestElementOnRight(int[] nums) {
+        int n = nums.length;
+        int[] result = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = n - 1; i >= 0; i--) {
+             if(stack.isEmpty()){
+              result[i]=n;
+            }else{
+            while (!stack.isEmpty() && nums[stack.peek()] >= nums[i]) {
+                stack.pop();
+            }
+            result[i] = stack.isEmpty() ? n : stack.peek();
+            
+        }
+        stack.push(i);
+        }
+
+        return result;
+    }
+}
+
