@@ -1,0 +1,46 @@
+class Solution {
+    public int sumSubarrayMins(int[] nums) {
+       int left[]=getleft(nums);//next smallest element on left
+       int right[]=getright(nums);//next smallest element on right
+       long sum=0;
+       for(int i=0;i<nums.length;i++){
+        int l=i-left[i];
+        int r=right[i]-i;
+            long res = ((long) l * r) % 1000000007;
+            sum = (sum + ((res * nums[i]) % 1000000007)) % 1000000007;
+   //num *(no.of elemnts on left smaller with this num) *( no.of elements on right smaller as current element )
+       }
+       return (int) sum;
+    }
+    int[] getleft(int nums[]){
+        Stack<Integer> stack=new Stack<>();
+        int ans[]=new int[nums.length];
+        for(int i=0;i<nums.length;i++){
+            if(stack.isEmpty()){
+                ans[i]=-1;
+            }else{
+                while(stack.isEmpty()==false && nums[stack.peek()] >nums[i]){
+                stack.pop();
+                }
+
+                ans[i]=stack.isEmpty()?-1:stack.peek();
+            }
+            stack.push(i);
+        }
+        return ans;
+    }
+    int[] getright(int nums[]){
+        Stack<Integer> stack=new Stack<>();
+        int ans[]=new int[nums.length];
+        for(int i=nums.length-1;i>=0;i--){
+            if(stack.isEmpty()){
+                ans[i]=nums.length;
+            }else{
+                while(stack.isEmpty()==false && nums[stack.peek()] >=nums[i])stack.pop();
+                ans[i]=stack.isEmpty()?nums.length:stack.peek();
+            }
+            stack.push(i);
+        }
+        return ans;
+    }
+}
