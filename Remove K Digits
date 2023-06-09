@@ -1,0 +1,49 @@
+class Solution {
+    public String removeKdigits(String num, int k) {
+        if(k==num.length())return "0";
+
+        Stack<Character> stack=new Stack<>();
+        for(int i=0;i<num.length();i++){
+            while(k>0 && !stack.isEmpty() && stack.peek() > num.charAt(i)){ 
+                stack.pop();
+                k--;
+            }
+            stack.push(num.charAt(i));
+        }
+
+        // handles the scenario where digits are equal, (1111, k=3)
+        while (k > 0 && !stack.isEmpty()) {
+            stack.pop();
+            k--;
+        }
+
+       StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) {
+            sb.append(stack.pop());
+        }
+        //as stack follows LIFO
+        sb.reverse();
+        
+        //remove leading zeros
+        while (sb.toString().startsWith("0")) {
+            sb.deleteCharAt(0);
+
+        }
+        return  sb.length() == 0 ? "0" :sb.toString();
+    }
+}
+// Intution
+// let's say if suppose we have n digits and we have to derive the next lowest number possible after removing 1 digit, then we need to remove the first peak, (the largest number in the first increasing sequence).
+
+// 1 5 7 6 5 4
+// Next lowest number possible would be 15654
+
+// Now, we have to remove k digits here. So let's repeat this operation k times.
+// k = 3
+// 1 5 7 6 5 4
+// k=2
+// 1 5 6 5 4
+// k=1
+// 1 5 5 4
+
+// k=0 comes out of the loop
